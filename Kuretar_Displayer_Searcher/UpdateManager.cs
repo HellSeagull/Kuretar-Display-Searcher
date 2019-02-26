@@ -13,7 +13,7 @@ namespace Kuretar_Displayer_Searcher
 {
     static class UpdateManager
     {
-        public const string VERSION = "1.0";
+        public const string VERSION = "1.1";
 
         private const string TEMP_DIRECTORY = ".tmp";
         private static readonly string CUR_DIRECTORY = Application.StartupPath;
