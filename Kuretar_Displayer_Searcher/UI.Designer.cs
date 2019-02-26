@@ -1,6 +1,6 @@
 ﻿namespace Kuretar_Displayer_Searcher
 {
-    partial class Form1
+    partial class UI
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btn3D = new System.Windows.Forms.Button();
             this.resultLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxItem = new System.Windows.Forms.RichTextBox();
@@ -37,6 +38,7 @@
             this.FiltreTxt = new System.Windows.Forms.TextBox();
             this.displayItem = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.displayMorph = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
@@ -45,6 +47,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Btn3D);
             this.groupBox1.Controls.Add(this.resultLabel);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxItem);
@@ -57,6 +60,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Display item Info";
+            // 
+            // Btn3D
+            // 
+            this.Btn3D.Location = new System.Drawing.Point(261, 185);
+            this.Btn3D.Name = "Btn3D";
+            this.Btn3D.Size = new System.Drawing.Size(75, 23);
+            this.Btn3D.TabIndex = 6;
+            this.Btn3D.Text = "Visuel 3D";
+            this.Btn3D.UseVisualStyleBackColor = true;
+            this.Btn3D.Click += new System.EventHandler(this.Btn3D_Click);
             // 
             // resultLabel
             // 
@@ -115,12 +128,20 @@
             // 
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.displayMorph);
+            this.groupBox2.Controls.Add(this.panel1);
             this.groupBox2.Location = new System.Drawing.Point(411, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(393, 460);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Liste Morph";
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(9, 193);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(378, 261);
+            this.panel1.TabIndex = 9;
             // 
             // label2
             // 
@@ -136,13 +157,13 @@
             // displayMorph
             // 
             this.displayMorph.FormattingEnabled = true;
-            this.displayMorph.Location = new System.Drawing.Point(6, 225);
+            this.displayMorph.Location = new System.Drawing.Point(9, 166);
             this.displayMorph.Name = "displayMorph";
             this.displayMorph.Size = new System.Drawing.Size(381, 21);
             this.displayMorph.TabIndex = 4;
             this.displayMorph.KeyDown += new System.Windows.Forms.KeyEventHandler(this.displayMorph_KeyDown);
             // 
-            // Form1
+            // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -150,7 +171,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Form1";
+            this.Name = "UI";
             this.Text = "Kuretar Display Searcher BFA V1 Bêta";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
@@ -173,6 +194,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox displayMorph;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.Button Btn3D;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
