@@ -61,6 +61,66 @@ namespace Kuretar_Displayer_Searcher.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap background_default {
+            get {
+                object obj = ResourceManager.GetObject("background_default", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap button2 {
+            get {
+                object obj = ResourceManager.GetObject("button2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonstd {
+            get {
+                object obj = ResourceManager.GetObject("buttonstd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonstdClick {
+            get {
+                object obj = ResourceManager.GetObject("buttonstdClick", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonstdMouse {
+            get {
+                object obj = ResourceManager.GetObject("buttonstdMouse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap chat_settings_hover_32 {
+            get {
+                object obj = ResourceManager.GetObject("chat_settings_hover_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à 224|0|0|0|0
         ///233|0|0|0|0|typetex:jambes basses;pieds|mail_a_01_boot_ll_f;mail_a_01_boot_fo_f
         ///242|0|0|0|0
@@ -95,6 +155,16 @@ namespace Kuretar_Displayer_Searcher.Properties {
         }
         
         /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Helm_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Helm_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à 4 | murloc2,
         ///13 | hufmcitizenlow,
         ///16 | humanthief,
@@ -123,6 +193,36 @@ namespace Kuretar_Displayer_Searcher.Properties {
         internal static string ListingMorph {
             get {
                 return ResourceManager.GetString("ListingMorph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logoPlaceholder {
+            get {
+                object obj = ResourceManager.GetObject("logoPlaceholder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Monster_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Monster_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sword_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Sword_Logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

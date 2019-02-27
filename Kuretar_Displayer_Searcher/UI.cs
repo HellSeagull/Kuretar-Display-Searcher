@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using CefSharp.WinForms;
 using CefSharp;
 using CefSharp.SchemeHandler;
+using System.Diagnostics;
 
 namespace Kuretar_Displayer_Searcher
 {
@@ -20,15 +21,38 @@ namespace Kuretar_Displayer_Searcher
         private BindingSource _bindingsource = new BindingSource();
         private FileSystemWatcher watcher = new FileSystemWatcher();
         public static readonly string TEMP_FOLDER = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Kuretar_Displayer_Searcher");
-        ChromiumWebBrowser chromeBrowser;
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        ChromiumWebBrowser chromeBrowser = null;
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
         public UI()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void UI_Load(object sender, EventArgs e)
         {
+            SearchBtn.Visible = false;
+            panel1.Visible = false;
+            FiltreTxt.Visible = false;
+            panel2.Visible = false;
+            displayItem.Visible = false;
+            displayMorph.Visible = false;
 
             //UpdateManager.CheckForUpdate();
 
@@ -45,118 +69,172 @@ namespace Kuretar_Displayer_Searcher
 
             #endregion
 
-            //#region item
-            //foreach(string s in items.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None))
-            //{
-            //    displayItem.Items.Add(s);
-            //}
-            //#endregion
-
         }
+
+        private void UI_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private bool MouseIsOverControl(Button btn)
+        {
+            if (btn.ClientRectangle.Contains(btn.PointToClient(Cursor.Position)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #region SearchBtn
 
         private void SearchBtn_Click(object sender, EventArgs e)
         {
-            displayItem.Items.Clear();
-            if (FiltreTxt.Text != "")
+            try
             {
-                foreach (string s in items.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None))
+                displayItem.Items.Clear();
+                if (FiltreTxt.Text != "")
                 {
-                    try
+                    foreach (string s in items.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None))
                     {
-                        if (s != "" || s != null)
+                        try
                         {
-                            if (s.Split('|')[1].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                            if (s != "" || s != null)
                             {
-                                displayItem.Items.Add(s);
-                                //break;
-                            }
-                            else if (s.Split('|')[2].Contains(FiltreTxt.Text.ToLowerInvariant()))
-                            {
-                                displayItem.Items.Add(s);
-                                //break;
-                            }
-                            else if (s.Split('|').Count() == 6)
-                            {
-                                if (s.Split('|')[1] == "0" && s.Split('|')[2] == "0")
+                                if (s.Split('|')[1].Contains(FiltreTxt.Text.ToLowerInvariant()))
                                 {
-                                    if (s.Split('|')[5].Contains("_"))
+                                    displayItem.Items.Add(s);
+                                }
+                                else if (s.Split('|')[2].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                                {
+                                    displayItem.Items.Add(s);
+                                }
+                                else if (s.Split('|').Count() == 6)
+                                {
+                                    if (s.Split('|')[1] == "0" && s.Split('|')[2] == "0")
                                     {
-                                        if (s.Split('|')[5].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                                        if (s.Split('|')[5].Contains("_"))
                                         {
-                                            displayItem.Items.Add(s);
-                                            //break;
+                                            if (s.Split('|')[5].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                                            {
+                                                displayItem.Items.Add(s);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            else if (s.Split('|').Count() == 7)
-                            {
-                                if (s.Split('|')[1] == "0" && s.Split('|')[2] == "0")
+                                else if (s.Split('|').Count() == 7)
                                 {
-                                    if (s.Split('|')[6].Contains("_"))
+                                    if (s.Split('|')[1] == "0" && s.Split('|')[2] == "0")
                                     {
-                                        if (s.Split('|')[6].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                                        if (s.Split('|')[6].Contains("_"))
                                         {
-                                            displayItem.Items.Add(s);
-                                            //break;
+                                            if (s.Split('|')[6].Contains(FiltreTxt.Text.ToLowerInvariant()))
+                                            {
+                                                displayItem.Items.Add(s);
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        catch { }
                     }
-                    catch { }
                 }
-                resultLabel.Text = "Résultat Filtre OK";
             }
+            catch { }
         }
 
-        private delegate void addColorTextBox(RichTextBox t, Color color, string text);
-
-        private void addColorText(RichTextBox t, Color color, string text)
+        private void SearchBtn_MouseHover(object sender, EventArgs e)
         {
-            if (t.InvokeRequired)
-            {
-                t.Invoke(new addColorTextBox(addColorText), t, color, text);
-                return;
-            }
-            t.SelectionStart = t.TextLength;
-            t.SelectionLength = 0;
-            t.SelectionColor = color;
-            t.AppendText(text + "\n");
-            t.SelectionColor = t.ForeColor;
+            SearchBtn.BackgroundImage = Properties.Resources.buttonstdMouse;
         }
+
+        private void SearchBtn_MouseEnter(object sender, EventArgs e)
+        {
+            SearchBtn.BackgroundImage = Properties.Resources.buttonstdMouse;
+        }
+
+        private void SearchBtn_MouseLeave(object sender, EventArgs e)
+        {
+            SearchBtn.BackgroundImage = Properties.Resources.buttonstd;
+        }
+
+        private void SearchBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            SearchBtn.BackgroundImage = Properties.Resources.buttonstdClick;
+        }
+
+        private void SearchBtn_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(MouseIsOverControl(SearchBtn))
+                SearchBtn.BackgroundImage = Properties.Resources.buttonstdMouse;
+            else
+                SearchBtn.BackgroundImage = Properties.Resources.buttonstd;
+        }
+
+        #endregion
 
         private void displayItem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            resultLabel.Text = "";
-            textBoxItem.Clear();
-            addColorText(textBoxItem, Color.Blue, "DisplayID : " + displayItem.SelectedItem.ToString().Split('|')[0]);
-            addColorText(textBoxItem, Color.Blue, "Model_Gauche : " + displayItem.SelectedItem.ToString().Split('|')[1]);
-            addColorText(textBoxItem, Color.Blue, "Model_Droit : " + displayItem.SelectedItem.ToString().Split('|')[2]);
-            addColorText(textBoxItem, Color.Blue, "Tex_Gauche : " + displayItem.SelectedItem.ToString().Split('|')[3]);
-            addColorText(textBoxItem, Color.Blue, "Tex_Droite : " + displayItem.SelectedItem.ToString().Split('|')[4]);
+
+            panel1.Visible = true;
+            panel1.Size = new Size(553, 458);
+            panel1.Location = new Point(484, 310);
+            panel2.Visible = true;
+
+            writeHTMLItem();
+            if (Cef.IsInitialized)
+            {
+                chromeBrowser.LoadHtml(html, "https://www.google.com/");
+            }
+            else
+            {
+                initializeChromium();
+            }
+            texDisplay.ForeColor = Color.LightGoldenrodYellow;
+            texModel1.ForeColor = Color.LightGoldenrodYellow;
+            texModel2.ForeColor = Color.LightGoldenrodYellow;
+            texTex1.ForeColor = Color.LightGoldenrodYellow;
+            texTex2.ForeColor = Color.LightGoldenrodYellow;
+            texDisplay.Text = displayItem.SelectedItem.ToString().Split('|')[0];
+            texModel1.Text = displayItem.SelectedItem.ToString().Split('|')[1];
+            texModel2.Text = displayItem.SelectedItem.ToString().Split('|')[2];
+            texTex1.Text = displayItem.SelectedItem.ToString().Split('|')[3];
+            texTex2.Text = displayItem.SelectedItem.ToString().Split('|')[4];
             if (displayItem.SelectedItem.ToString().Split('|').Count() == 7)
             {
                 if (displayItem.SelectedItem.ToString().Split('|')[6].Contains("_"))
                 {
+                    string values = null;
                     for (int k = 0; k < displayItem.SelectedItem.ToString().Split('|')[6].Split(';').Count(); k++)
                     {
-                        addColorText(textBoxItem, Color.Red, "Textures de Corps : " + displayItem.SelectedItem.ToString().Split('|')[6].Split(';')[k]
-                            + ":\n------- " 
-                            + displayItem.SelectedItem.ToString().Split('|')[5].Split(':')[1].Split(';')[k]);
+                        values += "- " + displayItem.SelectedItem.ToString().Split('|')[6].Split(';')[k]
+                            + "\n   --- " + displayItem.SelectedItem.ToString().Split('|')[5].Split(':')[1].Split(';')[k] + "\n";
                     }
+                    TexBodyList.ForeColor = Color.LightGoldenrodYellow;
+                    TexBodyList.Text = values;
+                }
+                else
+                {
+                    TexBodyList.Text = "";
                 }
             }
-
-            addColorText(textBoxItem, Color.Black, "\nIndication : Pour visualiser l'objet, veuillez utiliser le visualisateur de la forge Kuretar pour le moment");
-            textBoxItem.ScrollToCaret();
-
         }
 
-        private void displayItem_TextChanged(object sender, EventArgs e)
+        private void displayMorph_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            writeHTMLCreature();
+            if (Cef.IsInitialized)
+            {
+                chromeBrowser.LoadHtml(html, "https://www.google.com/");
+            }
+            else
+            {
+                initializeChromium();
+            }
         }
 
         private void displayMorph_KeyDown(object sender, KeyEventArgs e)
@@ -176,7 +254,9 @@ namespace Kuretar_Displayer_Searcher
             }
         }
 
-        private void writeHTML()
+        #region Visualisateur 3D
+
+        private void writeHTMLCreature()
         {
             var xDocument = new XDocument(
             new XDocumentType("html", null, null, null),
@@ -207,7 +287,7 @@ namespace Kuretar_Displayer_Searcher
                         ),
                         new XElement("link",
                             new XAttribute("rel", "stylesheet"),
-                            new XAttribute("href", "http://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css")
+                            new XAttribute("href", "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css")
                         ),
                         new XElement("link",
                             new XAttribute("rel", "stylesheet"),
@@ -225,7 +305,7 @@ namespace Kuretar_Displayer_Searcher
                             new XAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.js")
                         ),
                         new XElement("script", "",
-                            new XAttribute("src", "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+                            new XAttribute("src", "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
                         ),
                         new XElement("script", "",
                             new XAttribute("src", "https://wow.zamimg.com/modelviewer/viewer/viewer.min.js")
@@ -234,7 +314,7 @@ namespace Kuretar_Displayer_Searcher
                             "g_user = { \"id\":0,\"name\":\"\",\"roles\":0,\"permissions\":0,\"ads\":false,\"cookies\":[],\"templists\":[],\"canDeleteComments\":false};"
                         ),
                         new XElement("script",
-                            "$.extend(window, { g_serverTime: new Date(\"2018-08-25T21:53:45-05:00\")}, {\"g_staticUrl\":\"https:\\/\\/wow.zamimg.com\",\"g_wowhead\":true,\"g_wow_build\":\"27406\",\"g_wow_expansion\":7});"
+                            "$.extend(window, { g_serverTime: new Date(\"2018-08-25T21:53:45-05:00\")}, {\"g_staticUrl\":\"https:\\/\\/wow.zamimg.com\",\"g_wowhead\":true,\"g_wow_build\":\"27406\",\"g_wow_expansion\":7});" 
                         ),
                         new XElement("script", "",
                             new XAttribute("src", "https://wow.zamimg.com/js/locale/frfr.js")
@@ -243,12 +323,18 @@ namespace Kuretar_Displayer_Searcher
                             new XAttribute("src", "https://wow.zamimg.com/js/basic.js")
                         ),
                         new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/js/locale-post-processing.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://cdn.zamimg.com/zul/2.2.0/zul.min.js")
+                        ),
+                        new XElement("script", "",
                             new XAttribute("src", "https://wow.zamimg.com/js/global.js")
                         )
                     ),
                     new XElement("body",
                         new XElement("script",
-                            "function wowhead3D() {ModelViewer.show({ type: 3, typeId: 0, displayId: 19773, slot: 13 });}"
+                            "function wowhead3D() {ModelViewer.show({ type: 1, typeId: 0, displayId: " + displayMorph.SelectedItem.ToString().Split('|')[0].Trim() + "});}"
                         ),
                         new XElement("script",
                             "window.onload=wowhead3D"
@@ -272,17 +358,106 @@ namespace Kuretar_Displayer_Searcher
             builder.Clear();
         }
 
-        private void Btn3D_Click(object sender, EventArgs e)
+        private void writeHTMLItem()
         {
-            writeHTML();
-            if (Cef.IsInitialized)
+            var xDocument = new XDocument(
+            new XDocumentType("html", null, null, null),
+                new XElement("html",
+                    new XElement("head",
+
+                        new XElement("meta",
+                            new XAttribute("charset", "UTF-8")
+                        ),
+                        new XElement("meta",
+                            new XAttribute("http-equiv", "Content-Type"),
+                            new XAttribute("content", "text/html;charset=UTF-8")
+                        ),
+                        new XElement("meta",
+                            new XAttribute("name", "viewport"),
+                            new XAttribute("content", "width=device-width,initial-scale=1")
+                        ),
+
+                        new XElement("link",
+                            new XAttribute("rel", "stylesheet"),
+                            new XAttribute("href", "https://wow.zamimg.com/css/global.css"),
+                            new XAttribute("type", "text/css")
+                        ),
+                        new XElement("link",
+                            new XAttribute("rel", "stylesheet"),
+                            new XAttribute("href", "https://wow.zamimg.com/modelviewer/viewer/viewer.css"),
+                            new XAttribute("type", "text/css")
+                        ),
+                        new XElement("link",
+                            new XAttribute("rel", "stylesheet"),
+                            new XAttribute("href", "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/darkly/bootstrap.min.css")
+                        ),
+                        new XElement("link",
+                            new XAttribute("rel", "stylesheet"),
+                            new XAttribute("href", "https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.css")
+                        ),
+
+
+                        new XElement("script", "",
+                            new XAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/modelviewer/viewer/viewer.min.js")
+                        ),
+                        new XElement("script",
+                            "g_user = { \"id\":0,\"name\":\"\",\"roles\":0,\"permissions\":0,\"ads\":false,\"cookies\":[],\"templists\":[],\"canDeleteComments\":false};"
+                        ),
+                        new XElement("script",
+                            "$.extend(window, { g_serverTime: new Date(\"2018-08-25T21:53:45-05:00\")}, {\"g_staticUrl\":\"https:\\/\\/wow.zamimg.com\",\"g_wowhead\":true,\"g_wow_build\":\"27406\",\"g_wow_expansion\":7});"
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/js/locale/frfr.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/js/basic.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/js/locale-post-processing.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://cdn.zamimg.com/zul/2.2.0/zul.min.js")
+                        ),
+                        new XElement("script", "",
+                            new XAttribute("src", "https://wow.zamimg.com/js/global.js")
+                        )
+                    ),
+                    new XElement("body",
+                        new XElement("script",
+                            "function wowhead3D() {ModelViewer.show({ type: 3, typeId: 0, displayId: " + displayItem.SelectedItem.ToString().Split('|')[0].Trim() + ", slot: 13});}"
+                        ),
+                        new XElement("script",
+                            "window.onload=wowhead3D"
+                        )
+                    )
+                )
+            );
+
+            var settings = new XmlWriterSettings
             {
-                  chromeBrowser.LoadHtml(html, "https://www.google.fr");
-            }
-            else
+                OmitXmlDeclaration = true,
+                Indent = true,
+                IndentChars = "\t"
+            };
+            StringBuilder builder = new StringBuilder();
+            using (var writer = XmlWriter.Create(builder))
             {
-                initializeChromium();
+                xDocument.WriteTo(writer);
             }
+            html = builder.ToString();
+            builder.Clear();
         }
 
         private void initializeChromium()
@@ -290,25 +465,84 @@ namespace Kuretar_Displayer_Searcher
             CefSettings settings = new CefSettings();
             settings.RegisterScheme(new CefCustomScheme
             {
-                SchemeName = "localfolder",
-                DomainName = "cefsharp",
+                SchemeName = "3D",
+                DomainName = "crossorigin.me",
+                IsCorsEnabled = true,
                 SchemeHandlerFactory = new FolderSchemeHandlerFactory(
             rootFolder: Directory.GetCurrentDirectory(),
-            hostName: "cefsharp",
+            hostName: "crossorigin.me",
             defaultPage: "index.html" // will default to index.html
         )
             });
+            settings.CachePath = "cache";
+            settings.CefCommandLineArgs.Add("disable-web-security", "1");
+            Cef.AddCrossOriginWhitelistEntry("https://crossorigin.me/https://google.com/", "GET", "wow.zamimg.com/modelviewer/meta/item", true);
             Cef.Initialize(settings);
-            chromeBrowser = new ChromiumWebBrowser("https://google.com");
-            chromeBrowser.LoadHtml(html, "https://www.google.fr");
-
+            chromeBrowser = new ChromiumWebBrowser("https://crossorigin.me/https://google.com/");
+            BrowserSettings bSetting = new BrowserSettings();
+            bSetting.FileAccessFromFileUrls = CefState.Enabled;
+            bSetting.UniversalAccessFromFileUrls = CefState.Enabled;
+            bSetting.WebSecurity = CefState.Disabled;
+            chromeBrowser.BrowserSettings = bSetting;
+            chromeBrowser.LoadHtml(html, "https://crossorigin.me/https://google.com");
             this.Controls.Add(chromeBrowser);
-            chromeBrowser.Dock = DockStyle.None;
-            chromeBrowser.Left = panel1.Location.X + 409;
-            chromeBrowser.Top = panel1.Location.Y + 12;
-            chromeBrowser.Height = panel1.Height;
-            chromeBrowser.Width = panel1.Width;
-            chromeBrowser.BringToFront();
+            if (displayItem.Visible == true)
+            {
+                chromeBrowser.Dock = DockStyle.None;
+                chromeBrowser.Size = new Size(553, 458);
+                chromeBrowser.Location = new Point(484, 310);
+                chromeBrowser.BringToFront();
+            }
+            if (displayMorph.Visible == true)
+            {
+                chromeBrowser.Dock = DockStyle.None;
+                chromeBrowser.Size = new Size(600, 400);
+                chromeBrowser.Location = new Point(263, 225);
+                chromeBrowser.BringToFront();
+            }
         }
+
+        #endregion
+
+        #region Page Switch
+
+        private void NpcLabel_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Size = new Size(600, 400);
+            panel1.Location = new Point(263, 225);     
+            SearchBtn.Visible = false;
+            FiltreTxt.Visible = false;
+            displayItem.Visible = false;
+            displayMorph.Visible = true;
+            if (chromeBrowser != null)
+            {
+                chromeBrowser.Size = new Size(600, 400);
+                chromeBrowser.Location = new Point(263, 225);
+            }
+        }
+
+        private void ItemLabel_Click(object sender, EventArgs e)
+        {
+            panel1.Size = new Size(553, 458);
+            panel1.Location = new Point(484, 310);
+            SearchBtn.Visible = true;
+            FiltreTxt.Visible = true;
+            displayItem.Visible = true;
+            displayMorph.Visible = false;
+            if (chromeBrowser != null)
+            {
+                chromeBrowser.Size = new Size(553, 458);
+                chromeBrowser.Location = new Point(484, 310);
+            }
+        }
+
+        private void ArmorLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
     }
 }

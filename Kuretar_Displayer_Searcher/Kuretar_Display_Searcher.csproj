@@ -80,6 +80,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GithubReleaseModel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="UI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,14 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -117,6 +117,18 @@
   <ItemGroup>
     <None Include="Resources\DB_ITEM_BFA.csv" />
     <None Include="Resources\ListingMorph.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\background_default.jpg" />
+    <Content Include="Resources\button2.png" />
+    <Content Include="Resources\buttonstd.png" />
+    <Content Include="Resources\buttonstdClick.png" />
+    <Content Include="Resources\buttonstdMouse.png" />
+    <Content Include="Resources\chat_settings_hover_32.png" />
+    <Content Include="Resources\Helm_Logo.png" />
+    <Content Include="Resources\logoPlaceholder.png" />
+    <Content Include="Resources\Monster_Logo.png" />
+    <Content Include="Resources\Sword_Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -27,7 +27,7 @@ namespace Kuretar_Displayer_Searcher
                 Directory.Delete(TEMP_DIRECTORY, true);
         }
 
-        public static async Task CheckForUpdate()
+        public static async void CheckForUpdate()
         {
             if (File.Exists(TEMP_UPDATE_ZIP))
             {
@@ -35,11 +35,17 @@ namespace Kuretar_Displayer_Searcher
             }
             else
             {
+
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
                 using (var client = new WebClient())
                 {
-                    string releaseURL = Properties.Settings.Default["ReleaseURL"].ToString();
-                    string releaseAPI = Properties.Settings.Default["ReleaseAPI"].ToString();
-                    string userAgent = Properties.Settings.Default["UserAgent"].ToString();
+                    string releaseURL = "https://github.com/HellSeagull/Kuretar-Display-Searcher/releases";
+                    string releaseAPI = "http://api.github.com/repos/HellSeagull/Kuretar-Display-Searcher/releases/latest";
+                    string userAgent = "Mozilla / 4.0(Compatible; Windows NT 5.1; MSIE 6.0) (compatible; MSIE 6.0; Windows NT 5.1; Kuretar_Displayer_Searcher_Displayer_Searcher";
                     client.Headers["User-Agent"] = userAgent + VERSION;
 
                     string json = await client.DownloadStringTaskAsync(releaseAPI);
@@ -52,7 +58,14 @@ namespace Kuretar_Displayer_Searcher
 
                         DialogResult dialogResult = MessageBox.Show(text, "Update Available", MessageBoxButtons.YesNo);
                         RestartOnComplete = (dialogResult == DialogResult.Yes);
-                        await DoDownload(model.assets[0].browser_download_url);
+                        try
+                        {
+                            await DoDownload(model.assets[0].browser_download_url);
+                        }
+                        catch(Exception exp)
+                        {
+                            MessageBox.Show(exp.ToString());
+                        }
                     }
                 }
             }
@@ -62,7 +75,7 @@ namespace Kuretar_Displayer_Searcher
         {
             using (var client = new WebClient())
             {
-                string userAgent = Properties.Settings.Default["UserAgent"].ToString();
+                string userAgent = "Mozilla / 4.0(Compatible; Windows NT 5.1; MSIE 6.0) (compatible; MSIE 6.0; Windows NT 5.1; Kuretar_Displayer_Searcher_Displayer_Searcher";
                 client.Headers["User-Agent"] = userAgent + VERSION;
 
                 try
