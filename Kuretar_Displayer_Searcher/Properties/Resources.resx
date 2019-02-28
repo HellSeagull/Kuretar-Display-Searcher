@@ -148,10 +148,13 @@
   <data name="Helm_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Helm_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Sword_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sword_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Monster_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Monster_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sword_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sword_Logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="glues_wow_battleforazerothlogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\glues-wow-battleforazerothlogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

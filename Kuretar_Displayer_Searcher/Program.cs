@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Kuretar_Displayer_Searcher
+namespace Kuretar_Display_Searcher
 {
     static class Program
     {

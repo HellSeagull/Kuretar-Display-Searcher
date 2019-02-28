@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Kuretar_Displayer_Searcher.Properties {
+namespace Kuretar_Display_Searcher.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Kuretar_Displayer_Searcher.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Kuretar_Displayer_Searcher.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Kuretar_Display_Searcher.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -151,6 +151,16 @@ namespace Kuretar_Displayer_Searcher.Properties {
         internal static string DB_ITEM_BFA {
             get {
                 return ResourceManager.GetString("DB_ITEM_BFA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap glues_wow_battleforazerothlogo {
+            get {
+                object obj = ResourceManager.GetObject("glues_wow_battleforazerothlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

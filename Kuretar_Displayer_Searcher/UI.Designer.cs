@@ -1,4 +1,4 @@
-﻿namespace Kuretar_Displayer_Searcher
+﻿namespace Kuretar_Display_Searcher
 {
     partial class UI
     {
@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UI));
             this.displayMorph = new System.Windows.Forms.ComboBox();
             this.Logo = new System.Windows.Forms.PictureBox();
             this.displayItem = new System.Windows.Forms.ComboBox();
-            this.FiltreTxt = new System.Windows.Forms.TextBox();
-            this.SearchBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.NPC = new System.Windows.Forms.PictureBox();
             this.Item = new System.Windows.Forms.PictureBox();
@@ -44,6 +43,9 @@
             this.Armor = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.texAppID = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.AppFindBtn = new System.Windows.Forms.Button();
             this.texTex2 = new System.Windows.Forms.Label();
             this.texTex1 = new System.Windows.Forms.Label();
             this.texModel2 = new System.Windows.Forms.Label();
@@ -56,6 +58,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.FilterBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.FiltreLbl = new System.Windows.Forms.Label();
+            this.FilterBox2 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Close = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NPC)).BeginInit();
@@ -64,12 +75,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Armor)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // displayMorph
             // 
             this.displayMorph.FormattingEnabled = true;
-            this.displayMorph.Location = new System.Drawing.Point(377, 148);
+            this.displayMorph.Location = new System.Drawing.Point(339, 192);
             this.displayMorph.Name = "displayMorph";
             this.displayMorph.Size = new System.Drawing.Size(381, 21);
             this.displayMorph.TabIndex = 4;
@@ -79,7 +91,7 @@
             // Logo
             // 
             this.Logo.BackColor = System.Drawing.Color.Transparent;
-            this.Logo.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.logoPlaceholder;
+            this.Logo.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.logoPlaceholder;
             this.Logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Logo.Location = new System.Drawing.Point(13, 13);
             this.Logo.Name = "Logo";
@@ -90,40 +102,12 @@
             // displayItem
             // 
             this.displayItem.FormattingEnabled = true;
-            this.displayItem.Location = new System.Drawing.Point(377, 265);
+            this.displayItem.Location = new System.Drawing.Point(520, 206);
             this.displayItem.Name = "displayItem";
             this.displayItem.Size = new System.Drawing.Size(381, 21);
             this.displayItem.TabIndex = 0;
             this.displayItem.SelectedIndexChanged += new System.EventHandler(this.displayItem_SelectedIndexChanged);
-            // 
-            // FiltreTxt
-            // 
-            this.FiltreTxt.Location = new System.Drawing.Point(463, 149);
-            this.FiltreTxt.Name = "FiltreTxt";
-            this.FiltreTxt.Size = new System.Drawing.Size(211, 20);
-            this.FiltreTxt.TabIndex = 1;
-            // 
-            // SearchBtn
-            // 
-            this.SearchBtn.BackColor = System.Drawing.Color.Transparent;
-            this.SearchBtn.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.buttonstd;
-            this.SearchBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.SearchBtn.FlatAppearance.BorderSize = 0;
-            this.SearchBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SearchBtn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SearchBtn.ForeColor = System.Drawing.Color.White;
-            this.SearchBtn.Location = new System.Drawing.Point(498, 190);
-            this.SearchBtn.Name = "SearchBtn";
-            this.SearchBtn.Size = new System.Drawing.Size(138, 48);
-            this.SearchBtn.TabIndex = 2;
-            this.SearchBtn.Text = "Recherche";
-            this.SearchBtn.UseVisualStyleBackColor = false;
-            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
-            this.SearchBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SearchBtn_MouseDown);
-            this.SearchBtn.MouseEnter += new System.EventHandler(this.SearchBtn_MouseEnter);
-            this.SearchBtn.MouseLeave += new System.EventHandler(this.SearchBtn_MouseLeave);
-            this.SearchBtn.MouseHover += new System.EventHandler(this.SearchBtn_MouseHover);
-            this.SearchBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.SearchBtn_MouseUp);
+            this.displayItem.KeyDown += new System.Windows.Forms.KeyEventHandler(this.displayItem_KeyDown);
             // 
             // pictureBox1
             // 
@@ -138,7 +122,7 @@
             // NPC
             // 
             this.NPC.BackColor = System.Drawing.Color.Transparent;
-            this.NPC.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.Monster_Logo;
+            this.NPC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("NPC.BackgroundImage")));
             this.NPC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.NPC.Location = new System.Drawing.Point(230, 50);
             this.NPC.Name = "NPC";
@@ -149,7 +133,7 @@
             // Item
             // 
             this.Item.BackColor = System.Drawing.Color.Transparent;
-            this.Item.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.Sword_Logo;
+            this.Item.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.Sword_Logo;
             this.Item.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Item.Location = new System.Drawing.Point(465, 50);
             this.Item.Name = "Item";
@@ -215,7 +199,7 @@
             // Armor
             // 
             this.Armor.BackColor = System.Drawing.Color.Transparent;
-            this.Armor.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.Helm_Logo;
+            this.Armor.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.Helm_Logo;
             this.Armor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Armor.Location = new System.Drawing.Point(725, 50);
             this.Armor.Name = "Armor";
@@ -233,6 +217,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.texAppID);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.AppFindBtn);
             this.panel2.Controls.Add(this.texTex2);
             this.panel2.Controls.Add(this.texTex1);
             this.panel2.Controls.Add(this.texModel2);
@@ -249,6 +236,49 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(465, 458);
             this.panel2.TabIndex = 19;
+            // 
+            // texAppID
+            // 
+            this.texAppID.AutoSize = true;
+            this.texAppID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.texAppID.ForeColor = System.Drawing.Color.White;
+            this.texAppID.Location = new System.Drawing.Point(222, 424);
+            this.texAppID.Name = "texAppID";
+            this.texAppID.Size = new System.Drawing.Size(0, 16);
+            this.texAppID.TabIndex = 22;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(147, 422);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(69, 18);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "AppID:";
+            // 
+            // AppFindBtn
+            // 
+            this.AppFindBtn.BackColor = System.Drawing.Color.Transparent;
+            this.AppFindBtn.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.buttonstd;
+            this.AppFindBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.AppFindBtn.FlatAppearance.BorderSize = 0;
+            this.AppFindBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AppFindBtn.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AppFindBtn.ForeColor = System.Drawing.Color.White;
+            this.AppFindBtn.Location = new System.Drawing.Point(3, 407);
+            this.AppFindBtn.Name = "AppFindBtn";
+            this.AppFindBtn.Size = new System.Drawing.Size(138, 48);
+            this.AppFindBtn.TabIndex = 20;
+            this.AppFindBtn.Text = "AppFind";
+            this.AppFindBtn.UseVisualStyleBackColor = false;
+            this.AppFindBtn.Click += new System.EventHandler(this.AppFindBtn_Click);
+            this.AppFindBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.AppFindBtn_MouseDown);
+            this.AppFindBtn.MouseEnter += new System.EventHandler(this.AppFindBtn_MouseEnter);
+            this.AppFindBtn.MouseLeave += new System.EventHandler(this.AppFindBtn_MouseLeave);
+            this.AppFindBtn.MouseHover += new System.EventHandler(this.AppFindBtn_MouseHover);
+            this.AppFindBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.AppFindBtn_MouseUp);
             // 
             // texTex2
             // 
@@ -376,14 +406,130 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "DisplayID:";
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.glues_wow_battleforazerothlogo;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox4.Location = new System.Drawing.Point(263, 192);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(520, 240);
+            this.pictureBox4.TabIndex = 23;
+            this.pictureBox4.TabStop = false;
+            // 
+            // FilterBox
+            // 
+            this.FilterBox.FormattingEnabled = true;
+            this.FilterBox.Location = new System.Drawing.Point(339, 192);
+            this.FilterBox.Name = "FilterBox";
+            this.FilterBox.Size = new System.Drawing.Size(175, 21);
+            this.FilterBox.TabIndex = 20;
+            this.FilterBox.SelectedIndexChanged += new System.EventHandler(this.FilterBox_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(83, 205);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(244, 18);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Choisissez un type d\'Arme:";
+            // 
+            // FiltreLbl
+            // 
+            this.FiltreLbl.AutoSize = true;
+            this.FiltreLbl.BackColor = System.Drawing.Color.Transparent;
+            this.FiltreLbl.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FiltreLbl.ForeColor = System.Drawing.Color.White;
+            this.FiltreLbl.Location = new System.Drawing.Point(907, 205);
+            this.FiltreLbl.Name = "FiltreLbl";
+            this.FiltreLbl.Size = new System.Drawing.Size(0, 18);
+            this.FiltreLbl.TabIndex = 22;
+            // 
+            // FilterBox2
+            // 
+            this.FilterBox2.FormattingEnabled = true;
+            this.FilterBox2.Location = new System.Drawing.Point(339, 219);
+            this.FilterBox2.Name = "FilterBox2";
+            this.FilterBox2.Size = new System.Drawing.Size(175, 21);
+            this.FilterBox2.TabIndex = 23;
+            this.FilterBox2.SelectedIndexChanged += new System.EventHandler(this.FilterBox2_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(54, 181);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(248, 72);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Pour filtrer, taper votre \r\nrecherche puis appuyer sur\r\n\'Entrer\' pour aller à la\r" +
+    "\npremière occurence\r\n";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(449, 171);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(155, 18);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Liste des Morphs\r\n";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(101, 253);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(861, 38);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Bienvenue sur le Kuretar Display Searcher V2 !\r\n";
+            // 
+            // Close
+            // 
+            this.Close.AutoSize = true;
+            this.Close.BackColor = System.Drawing.Color.Transparent;
+            this.Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Close.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Close.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(188)))), ((int)(((byte)(188)))), ((int)(((byte)(188)))));
+            this.Close.Location = new System.Drawing.Point(1012, 9);
+            this.Close.Name = "Close";
+            this.Close.Size = new System.Drawing.Size(25, 23);
+            this.Close.TabIndex = 42;
+            this.Close.Text = "X";
+            this.Close.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Close_MouseClick);
+            this.Close.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Close_MouseDown);
+            this.Close.MouseEnter += new System.EventHandler(this.Close_MouseEnter);
+            this.Close.MouseLeave += new System.EventHandler(this.Close_MouseLeave);
+            this.Close.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Close_MouseUp);
+            // 
             // UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Kuretar_Displayer_Searcher.Properties.Resources.background_default;
+            this.BackgroundImage = global::Kuretar_Display_Searcher.Properties.Resources.background_default;
             this.ClientSize = new System.Drawing.Size(1049, 780);
+            this.Controls.Add(this.Close);
+            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.FilterBox2);
+            this.Controls.Add(this.FiltreLbl);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.FilterBox);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.ArmorLabel);
             this.Controls.Add(this.Armor);
@@ -396,13 +542,13 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.displayMorph);
             this.Controls.Add(this.displayItem);
-            this.Controls.Add(this.FiltreTxt);
-            this.Controls.Add(this.SearchBtn);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Kuretar Display Searcher BFA V1 Bêta";
+            this.Text = "Kuretar Display Searcher BFA V2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.UI_FormClosing);
             this.Load += new System.EventHandler(this.UI_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UI_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.Logo)).EndInit();
@@ -414,6 +560,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Armor)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,8 +570,6 @@
         private System.Windows.Forms.ComboBox displayMorph;
         private System.Windows.Forms.PictureBox Logo;
         private System.Windows.Forms.ComboBox displayItem;
-        private System.Windows.Forms.TextBox FiltreTxt;
-        private System.Windows.Forms.Button SearchBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox NPC;
         private System.Windows.Forms.PictureBox Item;
@@ -448,6 +593,18 @@
         private System.Windows.Forms.Label texModel2;
         private System.Windows.Forms.Label texModel1;
         private System.Windows.Forms.Label texDisplay;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button AppFindBtn;
+        private System.Windows.Forms.Label texAppID;
+        private System.Windows.Forms.ComboBox FilterBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label FiltreLbl;
+        private System.Windows.Forms.ComboBox FilterBox2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label Close;
     }
 }
 

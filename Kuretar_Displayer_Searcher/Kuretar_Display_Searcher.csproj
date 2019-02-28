@@ -10,8 +10,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0AA6BBC3-404C-4FC3-B1D7-8B117955A2E8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Kuretar_Displayer_Searcher</RootNamespace>
-    <AssemblyName>Kuretar_Displayer_Searcher</AssemblyName>
+    <RootNamespace>Kuretar_Display_Searcher</RootNamespace>
+    <AssemblyName>Kuretar_Display_Searcher</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -61,6 +61,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo_Kuretar2.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,7 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GithubReleaseModel.cs" />
+    <Compile Include="EnumDefinitions\EnumType.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,7 +96,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdateManager.cs" />
     <EmbeddedResource Include="UI.resx">
       <DependentUpon>UI.cs</DependentUpon>
     </EmbeddedResource>
@@ -119,12 +121,14 @@
     <None Include="Resources\ListingMorph.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Logo_Kuretar2.ico" />
     <Content Include="Resources\background_default.jpg" />
     <Content Include="Resources\button2.png" />
     <Content Include="Resources\buttonstd.png" />
     <Content Include="Resources\buttonstdClick.png" />
     <Content Include="Resources\buttonstdMouse.png" />
     <Content Include="Resources\chat_settings_hover_32.png" />
+    <Content Include="Resources\glues-wow-battleforazerothlogo.png" />
     <Content Include="Resources\Helm_Logo.png" />
     <Content Include="Resources\logoPlaceholder.png" />
     <Content Include="Resources\Monster_Logo.png" />
